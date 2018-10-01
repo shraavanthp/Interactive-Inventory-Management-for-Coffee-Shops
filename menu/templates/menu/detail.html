@@ -1,0 +1,29 @@
+{% extends 'menu/base.html' %}
+
+{% block content %}
+    <div class="container">
+<form name="new_form" action="{% url "menu:save" %}" method="post" onsubmit="return(validate());">
+{% csrf_token %}
+<br>
+<label>Name: </label><br>
+    <input type="text" name="item_name"><br><br>
+
+    <label class="radio-inline"><input type="radio" name="type" id="S" value="S"><b>Snack</b></label>
+    <label class="radio-inline"><input type="radio" name="type" id="D" value="D"><b>Drink</b></label><br><br>
+<div id="ingredient-div">
+<label>Ingredient: </label><br>
+    <input type="text" name="ingredients[]"> <input type="button" class="butn" id="plus_btn" value="+"><input type="button" class="butn" id="minus_btn" value="-"><br>
+</div>
+    <label>Related Items: </label>
+<div>
+<select multiple="multiple" name="related" id="related_items">
+    {% for item in item_list %}
+        <option value={{ item.id }}>{{ item.item_name }}</option>
+    {% endfor %}
+</select>
+
+</div><br>
+<input type="submit" value="Submit" />
+</form>
+    </div>
+{% endblock %}

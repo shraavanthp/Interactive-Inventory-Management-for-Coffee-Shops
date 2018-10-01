@@ -1,0 +1,13 @@
+{% extends 'menu/base.html' %}
+
+{% block content %}
+    <div class="container">
+    <h1>{{ item.item_name }}</h1>
+    <dl><dt><h2><u>Ingredients</u></h2></dt>
+        {% for ing in item.item_ingredients_set.all %}<dd><h4> - {{ing.ingredient}} </h4></dd>{% endfor %}
+    </dl>
+    <dl><dt><h2><u>Related Items</u></h2></dt>
+        {% for rel_item in item.item_hdr_key.all %}<dd><h4> - <a href="{% url 'menu:item_detail' rel_item.related_item.id%}"> {{rel_item.related_item.item_name}} </a></h4></dd>{% endfor %}
+    </dl>
+    </div>
+{% endblock %}

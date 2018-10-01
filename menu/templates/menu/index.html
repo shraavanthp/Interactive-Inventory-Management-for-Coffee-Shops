@@ -1,0 +1,47 @@
+{% extends 'menu/base.html' %}
+
+{% block content %}
+<div class="container">
+{% if snack_list %}
+    <div class="row">
+        <div class="col-sm-6">
+            <h2>Snacks</h2>
+        </div>
+    <a href="{% url 'menu:form' %}"> <span style="margin-top: 30px" class="glyphicon glyphicon-plus"></span> </a>
+    </div>
+    <dl>
+    {% for snack in snack_list %}
+        <div class="row">
+            <div class="col-sm-6"> <dt><a href="{% url 'menu:item_detail' snack.id%}"> <h4>{{snack.item_name}}</h4> </a></div>
+            <a href="{% url 'menu:edit' snack.id %}"> <span class="glyphicon glyphicon-edit"></span> </a> |
+            <a href="{% url 'menu:delete' snack.id %}"> <span class="glyphicon glyphicon-trash"></span> </a> </dt>
+        </div>
+    {% endfor %}
+    </dl>
+{% else %}
+    <p>No Snacks available!<a href="{% url 'menu:form' %}"> <span style="margin-top: 30px" class="glyphicon glyphicon-plus"></span> </a></p>
+{% endif %}
+
+
+{% if drinks_list %}
+<div class="row">
+        <div class="col-sm-6">
+            <h2>Drinks</h2>
+        </div>
+<a href="{% url 'menu:form' %}"> <span style="margin-top: 30px" class="glyphicon glyphicon-plus"></span> </a>
+</div>
+    <dl>
+    {% for drink in drinks_list %}
+        <div class="row">
+            <div class="col-sm-6"> <dt><a href="{% url 'menu:item_detail' drink.id%}"> <h4>{{drink.item_name}}</h4> </a></div>
+            <a href="{% url 'menu:edit' drink.id %}"> <span class="glyphicon glyphicon-edit"></span> </a> |
+            <a href="{% url 'menu:delete' drink.id %}"> <span class="glyphicon glyphicon-trash"></span> </a> </dt>
+        </div>
+
+    {% endfor %}
+    </dl>
+{% else %}
+    <p>No Drinks available!<a href="{% url 'menu:form' %}"> <span style="margin-top: 30px" class="glyphicon glyphicon-plus"></span> </a> </p>
+{% endif %}
+</div>
+{% endblock %}

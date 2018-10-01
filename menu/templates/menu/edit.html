@@ -1,0 +1,30 @@
+{% extends 'menu/base.html' %}
+
+{% block content %}
+    <div class="container">
+<form name="new_form" action="{% url "menu:edit_save" edit_item.id %}" method="post" onsubmit="return(validate());">
+{% csrf_token %}
+<br>
+<label>Name: </label><br>
+    <input type="text" name="item_name" value={{edit_item.item_name}}><br><br>
+
+    <label class="radio-inline"><input type="radio" name="type" id="S" value="S" {% if edit_item.item_type == 'S' %}checked{% endif %}><b>Snack</b></label>
+    <label class="radio-inline"><input type="radio" name="type" id="D" value="D" {% if edit_item.item_type == 'D' %}checked{% endif %}><b>Drink</b></label><br><br>
+<div id="ingredient-div">
+    <label>Ingredient: </label><br>
+{% for ing in edit_item.item_ingredients_set.all %}
+    <input type="text" name="ingredients[]" value="{{ ing.ingredient }}"> {% if forloop.counter == 1 %} <input type="button" class="butn" id="plus_btn" value="+"><input type="button" class="butn" id="minus_btn" value="-">{% endif %}<br>
+{% endfor %}
+</div>
+    <label>Related Items:</label>
+<div>
+<select multiple="multiple" name="related" id="related_items">
+    {% for item in item_list %}
+        <option value={{ item.id }} {% if item.id in related_list %} selected {% endif %}>{{ item.item_name }}</option>
+    {% endfor %}
+</select>
+</div><br>
+<input type="submit" value="Submit" />
+</form>
+    </div>
+{% endblock %}
